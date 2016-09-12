@@ -7,7 +7,7 @@ app = Flask("Impactr")
 mongo = PyMongo(app)
 
 player_schema = Schema({
-  "name": str,
+  "firstname": str,
   "age": int,
   "height": float,
   "weight": float
