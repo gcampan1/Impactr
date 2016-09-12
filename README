@@ -1,0 +1,15 @@
+-------------- Impactr -----------------
+a system for collecting head impact data
+
+Setup
+---------
+1. Install dependencies
+
+$ sudo apt-get install mongodb python3-pip
+$ sudo pip3 install virtualenv
+
+2. Setup virtual environment
+
+$ virtualenv ~/.impactrvenv
+$ source ~/.impactrvenv/bin/activate
+$ pip install -r requirements.txt
