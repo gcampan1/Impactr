@@ -36,5 +36,9 @@ def players():
     # Retrieve a player
     return jsonify(list(mongo.db.players.find({}, {"_id":0})))
 
+@app.route("/api/impact")
+def impact():
+    return "impact"
+
 if __name__=="__main__":
   app.run(host="0.0.0.0", debug=True)
