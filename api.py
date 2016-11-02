@@ -1,6 +1,6 @@
 from uuid import uuid4
 from flask import Blueprint, request, abort, jsonify, Response
-from schema import Schema
+from schema import Schema, Optional
 
 from mongo import mongo
 
@@ -16,7 +16,7 @@ player_schema = Schema({
 })
 
 impact_schema = Schema({
-  "player_id": str,
+  Optional("player_id"): str,
   "date": str,
   "time": str,
   "a_x": float,
@@ -69,3 +69,19 @@ def impact():
   else:
     #Retrieve Impact Data
     return jsonify(list(mongo.db.impact.find({}, {"_id":0})))
+
+@api.route("/players/<player_id>/impact", methods=["GET", "POST"])
+def impact_for_player(player_id):
+    if request.method == "POST":
+        data = request.json
+        try:
+            impact_schema.validate(data)
+        except:
+            abort(400)
+        data["player_id"] = player_id
+        mongo.db.impact.insert(data)
+        return Response("OK", status=200)
+
+    # GET
+    impact_data = mongo.db.impact.find({"player_id": player_id}, {"_id": 0})
+    return jsonify(list(impact_data))
