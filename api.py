@@ -33,6 +33,10 @@ impact_schema = Schema({
   "bpm": int
 })
 
+@api.route("/register", methods=["POST"])
+def register():
+    # TODO
+    pass
 
 @api.route("/players", methods=["GET", "POST"])
 def players():
