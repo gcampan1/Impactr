@@ -8,6 +8,10 @@ def home():
 
 @www.route("/players")
 def players():
+    return render_template("players.html")
+
+@www.route("/players/new")
+def player_form():
     return render_template("playerform.html")
 
 @www.route("/coaches")
@@ -18,3 +22,18 @@ def coaches():
 def parents():
     return render_template("parentform.html")
 
+@www.route("/contact")
+def contact():
+    return render_template("contact.html")
+
+@www.route("/data")
+def data():
+    return render_template("data.html")
+
+@www.route("/histogram")
+def histogram():
+    return render_template("histogram.html")
+
+@www.route("/linegraph")
+def linegraph():
+    return render_template("linegraph.html")
