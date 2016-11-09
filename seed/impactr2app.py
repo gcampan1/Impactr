@@ -1,8 +1,10 @@
+import sys
+
 fields = ["date", "time", "a_x", "a_y", "a_z", "roll", "pitch", "yaw", "ug_x", "ug_y", "ug_z", "o2", "hyd", "bpm", "other1", "other2", "other3", "other4"]
 
 import csv
 
-f = open("data1.TXT")
+f = open(sys.argv[1])
 
 
 dialect = csv.Sniffer().sniff(f.read(), delimiters=' ')

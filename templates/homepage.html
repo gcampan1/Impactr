@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}
+impactr
+{% endblock %}
+
+{% block head %}
+    <script type="text/javascript">
+    function goToNewPage()
+    {
+        var url = document.getElementById('list').value;
+        if(url != 'none') {
+            window.location = url;
+        }
+    }
+    </script>
+{% endblock %}
+
+{% block body %}
+    <h1 class = "page-title">Welcome to the Head Impact Monitor!</h1>
+    <select name="list" id="list" accesskey="target">
+        <option value='none' selected>Select an option</option>
+        <option value="{{ url_for('www.coaches') }}">Coach</option>
+        <option value="{{ url_for('www.players') }}">Player</option>
+        <option value="{{ url_for('www.parents') }}">Parent</option>
+    </select>
+    <input type=button value="Go" onclick="goToNewPage()" />
+{% endblock %}

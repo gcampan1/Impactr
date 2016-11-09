@@ -1,8 +1,11 @@
+import logging
 from uuid import uuid4
+
 from flask import Blueprint, request, abort, jsonify, Response
 from schema import Schema, Optional
-
 from mongo import mongo
+
+logger = logging.getLogger(__name__)
 
 api = Blueprint("api", __name__)
 
@@ -30,9 +33,17 @@ impact_schema = Schema({
   "ug_z": float,
   "o2": int,
   "hyd": int,
-  "bpm": int
+  "bpm": int,
+  Optional("other1"): object,
+  Optional("other2"): object,
+  Optional("other3"): object,
+  Optional("other4"): object,
 })
 
+@api.route("/register", methods=["POST"])
+def register():
+    # TODO
+    pass
 
 @api.route("/players", methods=["GET", "POST"])
 def players():
@@ -60,7 +71,8 @@ def impact():
     data = request.json
     try:
       impact_schema.validate(data)
-    except:
+    except Exception as e:
+      logger.error(str(e))
       abort(400)
     #Add Impact data
     #data["impact_data"] = mongo.db.players.find_one({"_id":0})
