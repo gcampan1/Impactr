@@ -1,4 +1,8 @@
+from hashlib import sha256
+from functools import wraps
 import logging
+import random
+import sys
 from uuid import uuid4
 
 from flask import Blueprint, request, abort, jsonify, Response
@@ -7,16 +11,19 @@ from schema import Schema, Optional, SchemaError
 import store
 
 logger = logging.getLogger(__name__)
+logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
 api = Blueprint("api", __name__)
 
-
-player_schema = Schema({
-  "name": str,
-  "age": int,
-  "height": float,
-  "weight": float,
-  #"MAC_addr": str
+registration_schema = Schema({
+    "isPlayer": str,
+    "email": str,
+    "firstName": str,
+    "lastName": str,
+    "password": str,
+    Optional("birthday"): object,
+    Optional("height"): object,
+    Optional("weight"): object,
 })
 
 impact_schema = Schema({
