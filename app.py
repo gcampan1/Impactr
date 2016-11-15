@@ -3,7 +3,6 @@ from uuid import uuid4
 
 from api import api
 from www import www
-from mongo import mongo
 
 app = Flask("Impactr")
 
@@ -11,7 +10,6 @@ app = Flask("Impactr")
 app.register_blueprint(www)
 
 # Register app
-mongo.init_app(app)
 app.register_blueprint(api, url_prefix="/api")
 
 if __name__=="__main__":

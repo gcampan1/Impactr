@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block title %}
+Impactr Registration
+{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+    <h1 class="page-title">Impactr Registration</h1>
+    <form class="form-horizontal" id="registration">
+        <div class="form-group">
+            <label for="email" class="col-sm-2 control-label">Account Type</label>
+            <label class="radio-inline">
+                <input type="radio" name="user-type" id="user-type-player" value="player" checked> Player
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="user-type" id="user-type-coach" value="coach"> Coach
+            </label>
+        </div>
+        <div class="form-group">
+        </div>
+        <div class="form-group">
+            <label for="first-name" class="col-sm-2 control-label">First Name</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="first-name" placeholder="Lebron">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="last-name" class="col-sm-2 control-label">Last Name</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="last-name" placeholder="James">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="birthday" class="col-sm-2 control-label">Birthday</label>
+            <div class="col-sm-10">
+                <input type="date" class="form-control" id="birthday" placeholder="Birthday (MM/dd/YYYY)">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="height" class="col-sm-2 control-label">Height</label>
+            <div class="col-sm-10">
+                <input type="number" step="0.1" class="form-control" id="height" placeholder="80.5 in">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="weight" class="col-sm-2 control-label">Weight</label>
+            <div class="col-sm-10">
+                <input type="number" step="0.1" class="form-control" id="weight" placeholder="250.4 lb">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email" class="col-sm-2 control-label">Email</label>
+            <div class="col-sm-10">
+                <input type="email" class="form-control" id="email" placeholder="lebron.james@gmail.com">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password" class="col-sm-2 control-label">Password</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="password" placeholder="at least 8 characters">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password" class="col-sm-2 control-label">Confirm Password</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="password-confirm" placeholder="don't mess up!">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+    <br/>
+    <script>
+        // trigger a UI change when the user type radio toggles
+        $("input[name='user-type']").change(function() {
+            var on = "player" === $(this).val()
+            $("#birthday").parent().parent().toggle(on)
+            $("#height").parent().parent().toggle(on)
+            $("#weight").parent().parent().toggle(on)
+        })
+
+        // handle registration form submission
+        $("#registration").submit(function(e) {
+            e.preventDefault()
+
+            var pw = $("#password").val()
+            var confirmPw = $("#password-confirm").val()
+            if (pw != confirmPw) {
+                $("#password-confirm").addClass("has-error")
+                console.log("passwords don't match")
+                return
+            }
+
+            var payload = {
+                isPlayer: $("input[name='user-type']").val(),
+                email: $("#email").val(),
+                firstName: $("#first-name").val(),
+                lastName: $("#last-name").val(),
+                password: pw,
+                birthday: $("#birthday").val(),
+                height: $("#height").val(),
+                weight: $("#weight").val()
+            }
+            
+            $.ajax({
+                url: "/api/register", 
+                type: "POST", 
+                data: JSON.stringify(payload), 
+                contentType: "application/json",
+                dataType: "json",
+                statusCode: {
+                    201: function(data, textStatus, jqXHR) {
+                        alert("success! your username is " + data.username)
+                        window.location.replace("/login")
+                    },
+                    400: function(data, textStatus, jqXHR) {
+                        alert("bad input: " + data.responseText)
+                    },
+                    409: function(data, textStatus, jqXHR) {
+                        alert("user with email already exists!")
+                    }
+                }
+            })
+        })
+
+    </script>
+{% endblock %}

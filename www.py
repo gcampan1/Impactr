@@ -14,9 +14,13 @@ def players():
 def player_by_id(username):
     return render_template("player_data.html")
 
-@www.route("/players/new")
-def player_form():
-    return render_template("player_form.html")
+@www.route("/login")
+def login():
+    return render_template("login.html")
+
+@www.route("/register")
+def register():
+    return render_template("register.html")
 
 @www.route("/contact")
 def contact():
