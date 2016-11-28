@@ -25,7 +25,7 @@ float_fields = {'a_x', 'a_y', 'a_z', 'roll', 'pitch', 'yaw', 'ug_x', 'ug_y', 'ug
 int_fields = {'o2', 'hyd', 'bpm', 'other1', 'other2', 'other3', 'other4'}
 for row in reader:
     obj = {} # moved inside loop
-    obj["player_id"] = "03fd6907-64fc-46e7-b1f2-38af96c48037"
+    obj["username"] = "topila28"
     obj["date"] = str(row[0])
     obj["time"] = str(row[1])
     obj["a_x"] = float(row[2])
