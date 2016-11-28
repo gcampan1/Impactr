@@ -27,7 +27,7 @@ registration_schema = Schema({
 })
 
 impact_schema = Schema({
-  Optional("player_id"): str,
+  "username": str,  # Was  "player_ID"
   "date": str,
   "time": str,
   "a_x": float,
@@ -141,19 +141,20 @@ def impact():
     # Retrieve Impact Data
     return jsonify(list(store.db.impact.find({}, {"_id":0})))
 
-@api.route("/players/<player_id>/impact", methods=["GET", "POST"])
-def impact_for_player(player_id):
+@api.route("/players/<username>/impact", methods=["GET", "POST"]) # Was "<player_ID>"
+def impact_for_player(username):  #changed from player_id
     if request.method == "POST":
         data = request.json
         try:
             impact_schema.validate(data)
         except:
             abort(400)
-        data["player_id"] = player_id
+        data["username"] = username  # Was "player_id = player_id"
         store.db.impact.insert(data)
         return Response("OK", status=200)
 
     # GET
-    impact_data = store.db.impact.find({"player_id": player_id}, {"_id": 0})
+    impact_data = store.db.impact.find({"username": username}, {"_id": 0})  #Changed player_ID to username
     return jsonify(list(impact_data))
+
 
