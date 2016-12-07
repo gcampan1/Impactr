@@ -25,3 +25,16 @@ def register():
 @www.route("/contact")
 def contact():
     return render_template("contact.html")
+
+@www.route("/d3")
+def d3():
+    return render_template("d3.html")
+
+@www.route("/histogram")
+def data():
+    return render_template("newd3.html")
+
+@www.route("/linegraph")
+def linegraph():
+	return render_template("linegraphtest.html")
+
