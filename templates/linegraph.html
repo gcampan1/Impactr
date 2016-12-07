@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}
+impactr
+{% endblock %}
+{% block head %}
+{% endblock %}
+
+{% block body %}
+<meta charset="utf-8">
+<style>
+
+.axis--x path {
+  display: none;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+</style>
+<svg width="960" height="500"></svg>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='linegraph.js') }}"></script>
+{% endblock %}
+

@@ -113,7 +113,7 @@ Impactr Registration
                 statusCode: {
                     201: function(data, textStatus, jqXHR) {
                         alert("success! your username is " + data.username)
-                        window.location.replace("/login")
+                        window.location.replace("/")
                     },
                     400: function(data, textStatus, jqXHR) {
                         alert("bad input: " + data.responseText)
